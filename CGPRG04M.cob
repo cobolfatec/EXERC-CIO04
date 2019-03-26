@@ -36,33 +36,26 @@
       *-----> VARIAVEIS AUXILIARES UTILIZADA NO PROCESSAMENTO
        01  WS-AREA-AUX.
            05  WS-FIM                 PIC X(01).
-           05  AS-NUMERO-IN           PIC 9(04).
-           05  AS-MEDIA               PIC 9(02)V99.
-           05  AS-SEXO-IN             PIC X(01).
-           05  AS-IDADE-IN            PIC 9(02).
-           05  AS-CURSO-IN            PIC X(12).
-           05  AS-NOTAA1-IN           PIC 9(02)V99.
-           05  AS-NOTAA2-IN           PIC 9(02)V99.
-           05  AS-RESGISTRO           PIC 9(02).
-           05  AS-SEXM                PIC X(01).
+           05  AS-mediag-IN           PIC 9(02)V99.
+           05  AS-SEXM                PIC X(02).
 
       *-----> ENTRADA - DADOS VIA SYSIN (NO JCL DE EXECUCAO)
 
        01  WS-REG-SYSOUT.
            05 WS-NUM              PIC 9(04).
-           FILLER                 PIC X(01).
+           FILLER                 PIC X(01) VALUES SPACES.
            05 WS-NOM              PIC X(20).
-           FILLER                 PIC X(01).
+           FILLER                 PIC X(01) VALUES SPACES.
            05 WS-SEX              PIC X(01).
-           FILLER                 PIC X(01).
+           FILLER                 PIC X(01) VALUES SPACES.
            05 WS-IDA              PIC 9(02).
-           FILLER                 PIC X(01).
+           FILLER                 PIC X(01) VALUES SPACES.
            05 WS-CUR              PIC X(12).
-           FILLER                 PIC X(01).
+           FILLER                 PIC X(01) VALUES SPACES.
            05 WS-NOT1-IN          PIC Z9V99.
-           FILLER                 PIC X(01).
+           FILLER                 PIC X(01) VALUES SPACES.
            05 WS-NOT2-IN          PIC Z9V99.
-           FILLER                 PIC X(01).
+           FILLER                 PIC X(01) VALUES SPACES.
            WS-MED                 PIC Z9V99.
 
        01  FILLER                 PIC X(35)        VALUE
@@ -105,7 +98,7 @@
       *--------------------------------------------------------------*
        030-PROCESSAR.
 
-           COMPUTE WS-MED = (AS-NOTAA1 + WS-NOTAA2) / 2
+           COMPUTE WS-MED = (WS-NOTAA1 + WS-NOTAA2) / 2
            DISPLAY WS-REG-SYSOUT
            DISPLAY WS-MEDIA
            ADD 1  TO AS-REGISTRO
