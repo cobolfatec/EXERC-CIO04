@@ -1,8 +1,4 @@
-       IDENTIFICATION DIVISION.
-      *=======================*
-       PROGRAM-ID.   RSPRG002.
-      *AUTHOR.       ALVARO PEREIRA DO NASCIMENTO.
-      *DATE-WRITTEN. 26/03/2019.
+      *DATE-WRITTEN. 01/02/2013.
       *--------------------------------------------------------------*
       * DISCIPLINA PROGRAMACAO MAINFRAME
       *--------------------------------------------------------------*
@@ -12,7 +8,7 @@
       *------------------> HISTORICO - MANUTENCAO <------------------*
       * VERSAO  MES/ANO  NR.DOC  IDENT.  DESCRICAO
       * ------  -------  ------  ------  -------------------------   *
-      *  V01    03/2019  010001  SISTEMA MOSTRA SYSOUT
+      *  V01    FEV/2013 010001  SISTEMA MOSTRA SYSOUT
       *--------------------------------------------------------------*
        ENVIRONMENT DIVISION.
       *====================*
@@ -35,41 +31,18 @@
 
       *-----> VARIAVEIS AUXILIARES UTILIZADA NO PROCESSAMENTO
        01  WS-AREA-AUX.
-           05  AS-mediag-IN           PIC 9(02)V99.
-           05  WS-FIM                 PIC 9(01).
-           O5  WS-CTLIDO              PIC 9(02).
+           05  WS-FIM                 PIC X(01).
+           05  WS-CTLIDO              PIC 9(02).
            05  WS-MEDIA               PIC 9(02)V99.
-           05  AS-SEXM                PIC X(02).
-           05  AS-ABMED               PIC 99.
-
       *-----> ENTRADA - DADOS VIA SYSIN (NO JCL DE EXECUCAO)
-      
-      01  WS-REG-SYSIN.
-           05 WS-NUM              PIC 9(04).
-           05 WS-NOM              PIC X(20).
-           05 WS-SEX              PIC X(01).
-           05 WS-IDA              PIC 9(02).
-           05 WS-CUR              PIC X(12).
-           05 WS-NOT1-IN          PIC Z9V99.
-           05 WS-NOT2-IN          PIC Z9V99.
-           WS-MED                 PIC Z9V99.
-      
-       01  WS-REG-SYSOUT.
-           05 WS-NUM              PIC 9(04).
-           FILLER                 PIC X(01) VALUES SPACES.
-           05 WS-NOM              PIC X(20).
-           FILLER                 PIC X(01) VALUES SPACES.
-           05 WS-SEX              PIC X(01).
-           FILLER                 PIC X(01) VALUES SPACES.
-           05 WS-IDA              PIC 9(02).
-           FILLER                 PIC X(01) VALUES SPACES.
-           05 WS-CUR              PIC X(12).
-           FILLER                 PIC X(01) VALUES SPACES.
-           05 WS-NOT1-IN          PIC Z9V99.
-           FILLER                 PIC X(01) VALUES SPACES.
-           05 WS-NOT2-IN          PIC Z9V99.
-           FILLER                 PIC X(01) VALUES SPACES.
-           WS-MED                 PIC Z9V99.
+       01  WS-REG-SYSIN.
+           05 WS-NUMERO-IN        PIC 9(04).
+           05 WS-NOME-IN          PIC X(20).
+           05 WS-SEXO-IN          PIC X(01).
+           05 WS-IDADE-IN         PIC 9(02).
+           05 WS-CURSO-IN         PIC X(12).
+           05 WS-NOTA1-IN         PIC 9(02)V99.
+           05 WS-NOTA2-IN         PIC 9(02)V99.
 
        01  FILLER                 PIC X(35)        VALUE
            '****** FIM DA WORKING-STORAGE *****'.
@@ -111,21 +84,11 @@
       *--------------------------------------------------------------*
        030-PROCESSAR.
 
-           COMPUTE WS-MED = (WS-NOTAA1 + WS-NOTAA2) / 2
-           DISPLAY WS-REG-SYSOUT
-           DISPLAY WS-MED
-      *    VERIFICADOR SE SEXO E MASCULINO    *
-           IF   AS-SEXO-IN  = 'M'
-              ADD 1  TO WS-SEX
-           END IF.
-      *    VERIFICAR SE ALUNO ESTA ABAIXO DA MEDIA   *
-           IF   WS-MED < 6
-              ADD 1  TO AS-ABMED
-           END IF.
-      *    ADICIONA MEDIA DO ALUNOA A MEDIA GERAL    *
-           ADD WS-MED TO AS-mediag-IN   
+           COMPUTE WS-MEDIA = (WS-NOTA1-IN + WS-NOTA2-IN) / 2
+           DISPLAY WS-REG-SYSIN
+           DISPLAY WS-MEDIA
+
            PERFORM 025-LER-SYSIN
-             
            .
       *--------------------------------------------------------------*
       *    PROCEDIMENTOS FINAIS
